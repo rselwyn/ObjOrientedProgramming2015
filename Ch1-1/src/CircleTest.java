@@ -10,7 +10,7 @@
 public class CircleTest {
 
 	public static void main(String[] args) {
-		//Create a new circle
+		//Construct a new circle
 		Circle ci = new Circle(10,"Black");
 		//Print the area
 		System.out.println(ci.getArea());

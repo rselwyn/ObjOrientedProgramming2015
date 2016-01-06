@@ -7,8 +7,8 @@ public class Circle {
     * 1st constructor, which sets both radius and color to default (from online)
     */ 
    public Circle() {
-      radius = 1.0;
-      color = "red";
+      setRadius(1.0);
+      setColor("red");
    }
    
    
@@ -17,8 +17,8 @@ public class Circle {
     * @param r	the radius 
     */
    public Circle(double r) {
-      this.radius = r;
-      color = "red";
+      setRadius(r);
+      setColor("red");
    }
    
    /*
