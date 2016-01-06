@@ -1,4 +1,12 @@
-
+/*
+ * README:
+ * I took the exercises from online, and I made all the edits required.
+ * I did the following
+ * 		-Added standard comments
+ *  	-Added public setter methods
+ *  	-Added toString() method
+ *  	-Added "this" to specify instance variables
+ */
 public class CircleTest {
 
 	public static void main(String[] args) {
