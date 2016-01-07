@@ -2,6 +2,7 @@
 public class MyPoint {
 	private int x;
 	private int y;
+	
 	/*
 	 * No argument constructor that sets the point a t (0,0)
 	 */
@@ -57,11 +58,21 @@ public class MyPoint {
 		return this.y;
 	}
 	
-	
 	/*
 	 * toString method
 	 */
 	public String toString(){
 		return "("+this.x+","+this.y+")";
 	}
+	
+	public double distance(int x , int y){
+		double xDiff = getX() - x;
+		double yDiff = getY() - y;
+		return Math.pow((Math.pow(xDiff, 2.0) + Math.pow(yDiff, 2)),1/2);
+	}
+	
+	public double distance(MyPoint point){
+		return distance(point.getX(),point.getY());
+	}
+	
 }
