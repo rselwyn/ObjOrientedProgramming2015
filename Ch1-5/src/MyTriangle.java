@@ -34,7 +34,7 @@ public class MyTriangle {
 	 * @return the perimeter of the triangle
 	 */
 	public double perimeter(){
-	//	System.out.println(v1.distance(v2) +" " +  v2.distance(v3) + " "+ v3.distance(v1));
+		System.out.println(v1.distance(v2) +" " +  v2.distance(v3) + " "+ v3.distance(v1));
 		return v1.distance(v2) + v2.distance(v3) + v3.distance(v1);
 	}
 	
