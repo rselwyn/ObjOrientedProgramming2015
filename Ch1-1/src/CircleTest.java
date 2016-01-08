@@ -6,6 +6,10 @@
  *  	-Added public setter methods
  *  	-Added toString() method
  *  	-Added "this" to specify instance variables
+ *  
+ *  Answer to questions:
+ *  
+ *  #3: I can't modify the radius directly because it is private.
  */
 public class CircleTest {
 
