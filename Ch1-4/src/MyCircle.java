@@ -3,12 +3,22 @@ public class MyCircle {
 	private MyPoint center;
 	private int radius;
 	
-	
+	/*
+	 * Constructor #1 using points as ints
+	 * @param x: the x coordinate
+	 * @param y: the y coordinate
+	 * @param radius: the circle's radius
+	 */
 	public MyCircle(int x, int y, int radius){
-		setRadius(radius);
-		setCenterXY(x,y);
+		setRadius(radius); //set the radius
+		setCenterXY(x,y); //set the center 
 	}
 	
+	/*
+	 * Constructor using a point object
+	 * @param center: the center of the circle
+	 * @param radius: the radius of the circle
+	 */
 	public MyCircle(MyPoint center, int radius){
 		setRadius(radius);
 		setCenter(center);
