@@ -75,9 +75,10 @@ public class MyPoint {
 	public double distance(int x , int y){
 		double xDiff = getX() - x;
 		double yDiff = getY() - y;
-		return Math.pow((Math.pow(xDiff, 2.0) + Math.pow(yDiff, 2)),1/2);
+		xDiff = xDiff*xDiff;
+		yDiff = yDiff*yDiff;
+		return Math.sqrt(xDiff+yDiff);
 	}
-	
 	/*
 	 * @param point: a point object to find the distance from
 	 */

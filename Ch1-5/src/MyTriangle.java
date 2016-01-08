@@ -33,7 +33,15 @@ public class MyTriangle {
 	/*
 	 * @return the perimeter of the triangle
 	 */
-	public double distance(){
+	public double perimeter(){
+	//	System.out.println(v1.distance(v2) +" " +  v2.distance(v3) + " "+ v3.distance(v1));
 		return v1.distance(v2) + v2.distance(v3) + v3.distance(v1);
+	}
+	
+	/*
+	 * @return the requested toString
+	 */
+	public String toString(){
+		return "Triangle @ ("+this.v1.getX()+","+this.v1.getY()+"), (" + this.v2.getX() +"," + this.v2.getY() + "), ("+this.v3.getX()+","+this.v3.getY()+")" ;
 	}
 }
