@@ -78,8 +78,6 @@ public class MyPoint {
 		xDiff = xDiff*xDiff;
 		yDiff = yDiff*yDiff;
 		return Math.sqrt(xDiff+yDiff);
-		
-		
 	}
 	
 	/*

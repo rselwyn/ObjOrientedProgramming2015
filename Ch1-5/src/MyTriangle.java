@@ -44,4 +44,16 @@ public class MyTriangle {
 	public String toString(){
 		return "Triangle @ ("+this.v1.getX()+","+this.v1.getY()+"), (" + this.v2.getX() +"," + this.v2.getY() + "), ("+this.v3.getX()+","+this.v3.getY()+")" ;
 	}
+	
+	public void printType(){
+		if (v1.distance(v2) == v2.distance(v3) && v2.distance(v3) == v3.distance(v1)){
+			System.out.println("This triangle is Equilateral");
+		}
+		else if (v1.distance(v2) == v2.distance(v3) || v2.distance(v3) == v3.distance(v1)){
+			System.out.println("This triangle is Isoceles");
+		}
+		else{
+			System.out.println("The triangle is scalene.");
+		}
+	}
 }
