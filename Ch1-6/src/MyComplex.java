@@ -158,8 +158,8 @@ public class MyComplex {
 		double cd = Math.pow(num.getImag(),2) + Math.pow(num.getReal(), 2); //get the cd value
 //		return new MyComplex();
 		MyComplex conjMult = multiplyWith(conjugate(num)); //find the conjugate
-		MyComplex mult = multiplyWith(conjMult); //multiply  the conjugate by the objcet
-		return new MyComplex(mult.getReal()/cd, mult.getImag()/cd); //return mult divided by cd val
+//		MyComplex mult = multiplyWith(conjMult); //multiply  the conjugate by the objcet
+		return new MyComplex(conjMult.getReal()/cd, conjMult.getImag()/cd); //return mult divided by cd val
 	}
 	
 }
