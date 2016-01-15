@@ -3,7 +3,7 @@ public class MyCircle {
 	private MyPoint center;
 	private int radius;
 	
-	/*
+	/**
 	 * Constructor #1 using points as ints
 	 * @param x: the x coordinate
 	 * @param y: the y coordinate
@@ -14,7 +14,7 @@ public class MyCircle {
 		setCenterXY(x,y); //set the center 
 	}
 	
-	/*
+	/**
 	 * Constructor using a point object
 	 * @param center: the center of the circle
 	 * @param radius: the radius of the circle
@@ -24,13 +24,13 @@ public class MyCircle {
 		setCenter(center);
 	}
 	
-	/*
+	/**
 	 * @return the radius
 	 */
 	public int getRadius(){
 		return this.radius;
 	}
-	/*
+	/**
 	 * Set the radius
 	 * @param the radius
 	 */
@@ -38,34 +38,34 @@ public class MyCircle {
 		this.radius = radius;
 	}
 	
-	/*
+	/**
 	 * @return the center object
 	 */
 	public MyPoint getCenter(){
 		return this.center;
 	}
-	/*
+	/**
 	 * @param point: the center point
 	 */
 	public void setCenter(MyPoint point){
 		this.center = point;
 	}
 	
-	/*
+	/**
 	 * @return the center of the circle (x coordinate)
 	 */
 	public int getCenterX(){
 		return this.center.getX();
 	}
 	
-	/*
+	/**
 	 * @return the center of the circle (y coordinate)
 	 */
 	public int getCenterY(){
 		return this.center.getY();
 	}
 	
-	/*
+	/**
 	 * @param x: the x coordinate
 	 * @param y: the y coordinate 
 	 */
@@ -73,14 +73,14 @@ public class MyCircle {
 		this.center = new MyPoint(x,y);
 	}
 	
-	/*
+	/**
 	 * @return the toString specified online
 	 */
 	public String toString(){
 		return "Circle * ("+getCenterX()+","+getCenterY()+") radius="+getRadius();
 	}
 	
-	/*
+	/**
 	 * @return the area of the triangle
 	 */
 	public double getArea(){

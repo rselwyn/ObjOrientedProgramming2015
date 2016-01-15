@@ -4,7 +4,7 @@ public class MyTriangle {
 	private MyPoint v2;
 	private MyPoint v3;
 	
-	/*
+	/**
 	 * The constructor which takes integer points
 	 * @param x1: the first x coordinate
 	 * @param x2: the second x coordinate
@@ -19,7 +19,7 @@ public class MyTriangle {
 		this.v3 = new MyPoint(x3,y3);
 	}
 	
-	/*
+	/**
 	 * Takes in points as point objects
 	 * @param v1: the first point of the triangle
 	 * @param v2: the second point of the triangle
@@ -30,7 +30,7 @@ public class MyTriangle {
 		this.v2 = v2;
 		this.v3 = v3;
 	}
-	/*
+	/**
 	 * @return the perimeter of the triangle
 	 */
 	public double perimeter(){
@@ -38,7 +38,7 @@ public class MyTriangle {
 		return v1.distance(v2) + v2.distance(v3) + v3.distance(v1);
 	}
 	
-	/*
+	/**
 	 * @return the requested toString
 	 */
 	public String toString(){

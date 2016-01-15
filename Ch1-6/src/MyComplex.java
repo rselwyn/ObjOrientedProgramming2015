@@ -147,7 +147,7 @@ public class MyComplex {
 		int bd = (int) (another.getImag() * getImag());
 		int ad = (int) (another.getReal() * getImag());
 		int bc = (int) (another.getImag() * getReal());
-		return new MyComplex((ac-bc), (ad-bc));
+		return new MyComplex((ac-bd), (ad+bc));
 	}
 	/**
 	 * Return the mycomplex divided by another number
