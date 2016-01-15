@@ -1,4 +1,12 @@
-
+/*
+ * I followed the assignment by doing the following:
+ *  -Write the MyComplex class
+ *  -Write a test program
+ *  -Write an app MyComplexApp that uses MyComplex
+ *  
+ *  I decided, due to the suggestion from the website, to make multiply with and 
+ *  divide with produce new instances, rather than modifying the current instance.
+ */
 public class TestMyComplex {
 
 	public static void main(String[] args) {

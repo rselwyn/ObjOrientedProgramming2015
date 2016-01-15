@@ -2,7 +2,7 @@
 public class MyComplex {
 	private double real;
 	private double imag;
-	
+	//Constructor #1
 	public MyComplex(double real, double imag){
 		setValue(real,imag);
 	}
@@ -46,7 +46,7 @@ public class MyComplex {
 	 * @return the toString from online
 	 */
 	public String toString(){
-		return "("+getReal()+" + "+getImag()+"i )";
+		return "("+getReal()+" + "+getImag()+"i)";
 	}
 	
 	/**
@@ -140,13 +140,14 @@ public class MyComplex {
 	
 	/**
 	 * Multiply with another complex number
+	 * All of the integers created are what will be used to calculate the value of 
 	 * @param the complex number to multiply by
 	 */
 	public MyComplex multiplyWith(MyComplex another){
-		int ac = (int) (another.getReal() * getReal());
-		int bd = (int) (another.getImag() * getImag());
-		int ad = (int) (another.getReal() * getImag());
-		int bc = (int) (another.getImag() * getReal());
+		double ac = (another.getReal() * getReal());
+		double bd = (another.getImag() * getImag());
+		double ad = (another.getReal() * getImag());
+		double bc = (another.getImag() * getReal());
 		return new MyComplex((ac-bd), (ad+bc));
 	}
 	/**
