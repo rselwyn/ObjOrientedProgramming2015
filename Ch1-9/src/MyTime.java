@@ -116,8 +116,8 @@ public class MyTime {
 			else{
 				hour = 0;
 			}
+		
 		}
-		second = 0;
 	
 		
 		return new MyTime(hour,minute,second);

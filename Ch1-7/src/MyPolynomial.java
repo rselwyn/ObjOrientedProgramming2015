@@ -76,31 +76,40 @@ public class MyPolynomial {
 	 * @return a new polynomial that is the sum of another and the polynomial
 	 */
 	public MyPolynomial add(MyPolynomial another){
-		if (another.getDegree() != getDegree()){
-			//If they are different sizes, throw an illegalargumentexception
-			throw new IllegalArgumentException();
-		}
-		//the new coefficients
-		double[] newCoeffs = new double[this.coeffs.length];
-		for (int i = 0; i<this.coeffs.length; i++){
-			newCoeffs[i] = this.coeffs[i] + another.getCoeffs()[i];
+		double[] retVal = new double[arrMax(another.getCoeffs(), this.coeffs)];	
+		double[] ourValBack = reverse(this.coeffs);
+		double[] otherValBack = reverse(another.getCoeffs());
+		
+		for (int i = 0; i<retVal.length; i++){
+			try{
+				retVal[i] = ourValBack[i] + otherValBack[i];
+			}
+			catch (Exception e){
+				try{
+					retVal[i] = ourValBack[i];
+				}
+				catch (Exception b){
+					retVal[i] = otherValBack[i];
+				}
+			}
 		}
 		
-		return new MyPolynomial(newCoeffs);
+		return new MyPolynomial(reverse(retVal));
 	}
 	
-	public MyPolynomial multiply(MyPolynomial another){
-		if (another.getDegree() != getDegree()){
-			//If they are different sizes, throw an illegalargumentexception
-			throw new IllegalArgumentException();
-		}
-		
-		double[] newCoeffs = new double[this.coeffs.length];
-		for (int i = 0; i<this.coeffs.length; i++){
-			newCoeffs[i] = this.coeffs[i] * another.getCoeffs()[i];
-		}
-		
-		return new MyPolynomial(newCoeffs);
+	public static int arrMax(double[] in, double[] b){
+		if (in.length > b.length) return in.length;
+		if (in.length < b.length) return b.length;
+		return b.length;
 	}
+	
+	public static double[] reverse(double[] nums) {
+	    double[] reversed = new double[nums.length];
+	    for (int i=0; i<nums.length; i++) {
+	        reversed[i] = nums[nums.length - 1 - i];
+	    }
+	    return reversed;
+	}
+	
 	
 }
