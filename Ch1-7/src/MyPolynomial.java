@@ -126,7 +126,7 @@ public class MyPolynomial {
 	}
 	
 	/**
-	 * Multiply two mypolynomials
+	 * Multiply two MyPolynomials
 	 * @param polynomial: the other polynomial to multiply with
 	 * @return returns a new polynomial 
 	 */

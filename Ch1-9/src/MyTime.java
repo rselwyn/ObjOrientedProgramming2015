@@ -63,11 +63,12 @@ public class MyTime {
 	}
 	
 	/**
-	 * 
+	 * To string method
 	 */
 	public String toString(){
 		return getHours()+":"+getMinute()+":"+getSeconds();
 	}
+	
 	/**
 	 * Changes the second to the next second
 	 */
@@ -141,6 +142,10 @@ public class MyTime {
 		return new MyTime(hour,minute,second);
 	}
 	
+	/**
+	 * Previous second
+	 * @return a new object with the previous second
+	 */
 	public MyTime previousSecond(){
 		int second = getSeconds();
 		int minute = getMinute();
@@ -166,6 +171,10 @@ public class MyTime {
 		return new MyTime(hour,minute,second);
 	}
 
+	/**
+	 * Turns back the clock one minute
+	 * @return an object with a previous 
+	 */
 	public MyTime previousMinute(){
 		int second = getSeconds();
 		int minute = getMinute();
@@ -188,6 +197,10 @@ public class MyTime {
 		return new MyTime(hour,minute,second);
 	}
 	
+	/**
+	 * Change the hour back by 1
+	 * @return the new MyTime with the hour -1
+	 */
 	public MyTime previouseHour(){
 		int second = getSeconds();
 		int minute = getMinute();
