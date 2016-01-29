@@ -29,7 +29,9 @@ public class MyPolynomial {
 			coeffs[i] = in.nextDouble();
 		}
 	}
+	
 	/**
+	 * ToString method
 	 * @return the string specified on the website
 	 */
 	public String toString(){
@@ -71,7 +73,7 @@ public class MyPolynomial {
 	}
 	
 	/**
-	 * 
+	 * Add two polynomials
 	 * @param another: the polynomial to add with
 	 * @return a new polynomial that is the sum of another and the polynomial
 	 */
@@ -98,13 +100,23 @@ public class MyPolynomial {
 	}
 	
 	
-	
+	/**
+	 * Get the max length out of two arrays
+	 * @param in: the first array
+	 * @param b: the second array
+	 * @return the longest array as int
+	 */
 	private static int arrMax(double[] in, double[] b){
 		if (in.length > b.length) return in.length;
 		if (in.length < b.length) return b.length;
 		return b.length;
 	}
 	
+	/**
+	 * Reverse an array
+	 * @param nums: the array to reverse
+	 * @return the reversed array
+	 */
 	private static double[] reverse(double[] nums) {
 	    double[] reversed = new double[nums.length];
 	    for (int i=0; i<nums.length; i++) {
@@ -113,13 +125,20 @@ public class MyPolynomial {
 	    return reversed;
 	}
 	
+	/**
+	 * Multiply two mypolynomials
+	 * @param polynomial: the other polynomial to multiply with
+	 * @return returns a new polynomial 
+	 */
     public MyPolynomial multiply(MyPolynomial polynomial) {
-        int totalLength = coeffs.length + polynomial.getCoeffs().length - 1;
+        int totalLength = coeffs.length + polynomial.getCoeffs().length - 1; //array size using combined array lengths
         double[] result = new double[totalLength]; //result list
-        for (int i = 0; i < coeffs.length; i++)
-            for (int j = 0; j < polynomial.coeffs.length; j++) {
+        for (int i = 0; i < coeffs.length; i++) //loop through the first coefficients
+            for (int j = 0; j < polynomial.coeffs.length; j++) { 
+            	//add them to the result
                 result[i + j] += coeffs[i] * polynomial.coeffs[j];
             }
+        //return the result
         return new MyPolynomial(result);
     }
 }
