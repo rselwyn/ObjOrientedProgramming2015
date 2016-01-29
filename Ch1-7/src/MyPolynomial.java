@@ -97,13 +97,15 @@ public class MyPolynomial {
 		return new MyPolynomial(reverse(retVal));
 	}
 	
-	public static int arrMax(double[] in, double[] b){
+	
+	
+	private static int arrMax(double[] in, double[] b){
 		if (in.length > b.length) return in.length;
 		if (in.length < b.length) return b.length;
 		return b.length;
 	}
 	
-	public static double[] reverse(double[] nums) {
+	private static double[] reverse(double[] nums) {
 	    double[] reversed = new double[nums.length];
 	    for (int i=0; i<nums.length; i++) {
 	        reversed[i] = nums[nums.length - 1 - i];
@@ -111,5 +113,13 @@ public class MyPolynomial {
 	    return reversed;
 	}
 	
-	
+    public MyPolynomial multiply(MyPolynomial polynomial) {
+        int totalLength = coeffs.length + polynomial.getCoeffs().length - 1;
+        double[] result = new double[totalLength]; //result list
+        for (int i = 0; i < coeffs.length; i++)
+            for (int j = 0; j < polynomial.coeffs.length; j++) {
+                result[i + j] += coeffs[i] * polynomial.coeffs[j];
+            }
+        return new MyPolynomial(result);
+    }
 }
