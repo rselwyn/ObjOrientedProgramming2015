@@ -168,6 +168,9 @@ public class MyDate {
 		return day;
 	}
 	
+	/**
+	 * To string specified online
+	 */
 	public String toString(){
 		try{
 			return this.strDays[getDayOfWeek(this.year, this.month, this.day)-1] + " " + getDay() + " " + this.strMonths[getMonth()-1] + " " + getYear();
@@ -183,14 +186,14 @@ public class MyDate {
 	 * @return the new object with the date moved
 	 */
 	public MyDate nextDay(){
-		if (getDay()<this.daysInMonths[getMonth()-1] && !(getMonth() == 2 && day== 27 && isLeapYear(getYear()))){
+		if (getDay()<this.daysInMonths[getMonth()-1] && !(getMonth() == 2 && day== 28 && isLeapYear(getYear()))){
 			setDay(getDay()+1);
 		}
-		else if (getDay() == this.daysInMonths[getMonth()-1] && !(getMonth() == 2 && day== 27 && isLeapYear(getYear()))){
+		else if (getDay() == this.daysInMonths[getMonth()-1] && !(getMonth() == 2 && day== 28 && isLeapYear(getYear()))){
 			setDay(0);
 			return nextMonth();
 		}
-		else if ((getMonth() == 2 && day== 27 && isLeapYear(getYear()))){
+		else if ((getMonth() == 2 && day== 28 && isLeapYear(getYear()))){
 			day++;
 			month++;
 		}
@@ -210,6 +213,19 @@ public class MyDate {
 	}
 	
 	/**
+	 * increment the year
+	 * @return the new mydate
+	 */
+	public MyDate nextYear(){
+		setYear(getYear()+1);
+		if (isLeapYear(getYear())){
+			if (getMonth()==2 && getDay() == 29) setDay(getDay()-1);
+		}
+		
+		return this;
+	}
+	
+	/**
 	 * Helper method to equalize the date after incrementing the month
 	 * @return
 	 */
@@ -221,6 +237,48 @@ public class MyDate {
 			else{
 				this.day = this.daysInMonths[getMonth()-1];
 			}
+		}
+		return this;
+	}
+	
+	/**
+	 * 
+	 */
+	public MyDate previousDay(){
+		if (getDay()!=1){
+			setDay(getDay()-1);
+		}
+		if (getDay() == 1 && getMonth()!=1 && getMonth()!=3){
+			setDay(daysInMonths[getMonth()-2]);
+			setMonth(getMonth()-1);
+		}
+		else if (getDay() == 1 && getMonth() == 1){
+			setYear(getYear()-1);
+			setDay(31);
+		}
+		else if (getMonth() == 3 && getDay() == 1){
+			if (isLeapYear(getYear())){
+				setMonth(getMonth()-1);
+				setDay(28);
+			}
+			else{
+				setMonth(getMonth()-1);
+				setDay(29);
+			}
+		}		
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public MyDate previousMonth(){
+		if (getMonth() != 1){
+			setMonth(getMonth()-1);
+		}
+		else{
+			setMonth(12);
 		}
 		return this;
 	}
