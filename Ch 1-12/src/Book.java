@@ -6,7 +6,8 @@ public class Book {
 	private String name;
 	private double price;
 	private int qtyInStock;
-	private Author[] authors;
+	private int numAuthors = 0;
+	private Author[] authors = new Author[5];
 	
 	/**
 	 * Constructor #1 for book
@@ -79,7 +80,32 @@ public class Book {
 		for (Author a : getAuthors()) System.out.println(a);
 	}
 	
-	public String toString(){
-		return getName();
+	/**
+	 * Add an author to the array
+	 * @param a: the author
+	 */
+	public void addAuthor(Author a){
+		authors[numAuthors] = a;
+		numAuthors++;
+	}
+	
+	/**
+	 * Tries to remove an author from the array
+	 * @param a: the author
+	 * @return the success of removing an author
+	 */
+	public boolean removeAuthor(Author a){
+		for (int i = 0; i < 5; i++){
+			try{
+				if (authors[i].getEmail() == a.getEmail() && authors[i].getName() == a.getName()){
+					authors[i] = null;
+					return true;
+				}
+			}
+			catch(Exception e){
+				
+			}
+		}
+		return false;
 	}
 }
