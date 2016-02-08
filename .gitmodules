@@ -1,0 +1,3 @@
+[submodule "Conways"]
+	path = Conways
+	url = https://github.com/rselwyn/Conways.git
