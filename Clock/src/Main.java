@@ -8,6 +8,7 @@ public class Main {
 		Clock c = new Clock(width,height);
 		c.start("    A Very Cool Clock");
 		c.setVisible(true);
+		
 	}
 
 }

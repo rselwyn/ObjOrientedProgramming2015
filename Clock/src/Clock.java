@@ -16,18 +16,98 @@ import javax.swing.ImageIcon;
 
 public class Clock extends JFrame{
 	
+	/**
+	 * initialDraw is whether or not there has been one draw loop already.
+	 * height is the height
+	 * wdith is the width
+	 * centerX is the center x coordinate
+	 * centerY is the center y coordinate
+	 * degreesToRadians converts degrees to radians
+	 * offSet is the time offset, which allows me to have different time zones
+	 */
 	private boolean initialDraw = false;
 	private final int height;
 	private final int width;
 	private final int centerX;
 	private final int centerY;
-	private final double radiansToDegrees =  Math.PI / 180;
+	private final double degreesToRadians =  Math.PI / 180;
+	private String title = "";
+	private double offSetForTimeZoneInRadians = 0;
 	
+	/**
+	 * A constructor for the clock that takes in the width and height.
+	 * @param width the width
+	 * @param height the height
+	 */
 	public Clock(int width, int height) {
 		this.height = height;
 		this.width = width;
 		centerX = this.width/2;
 		centerY = this.height/2;
+	}
+	
+	/**
+	 * A constructor for the clock that takes in the width and height.
+	 * @param width the width
+	 * @param height the height
+	 */
+	public Clock(int width, int height, double offset) {
+		this.height = height;
+		this.width = width;
+		centerX = this.width/2;
+		centerY = this.height/2;
+		this.offSetForTimeZoneInRadians = offset;
+		
+	}
+	
+	
+	/**
+	 * A constructor where the user can set all the location values
+	 * @param width: the width
+	 * @param height: the height
+	 * @param centerX: the center x coordinate
+	 * @param centerY: the center y coordinate
+	 */
+	public Clock(int width, int height, int centerX, int centerY) {
+		this.height = height;
+		this.width = width;
+		this.centerX = centerX;
+		this.centerY = centerY;
+	}
+	
+	/**
+	 * A constructor where the user can set all the location values
+	 * @param width: the width
+	 * @param height: the height
+	 * @param centerX: the center x coordinate
+	 * @param centerY: the center y coordinate
+	 * @param title: the title of the clock
+	 */
+	public Clock(int width, int height, int centerX, int centerY, String title) {
+		this.height = height;
+		this.width = width;
+		this.centerX = centerX;
+		this.centerY = centerY;
+	}
+	
+
+	/**
+	 * A constructor where the user can set all the location values
+	 * @param width: the width
+	 * @param height: the height
+	 * @param centerX: the center x coordinate
+	 * @param centerY: the center y coordinate
+	 */
+	public Clock(int width, int height, int centerX, int centerY, String title, int offset) {
+		this.height = height;
+		this.width = width;
+		this.centerX = centerX;
+		this.centerY = centerY;
+		this.offSetForTimeZoneInRadians = offset;
+	}
+	
+	public Clock() {
+		this(500,500);
 	}
 	
 	public void start(String title) {
@@ -39,43 +119,15 @@ public class Clock extends JFrame{
 		
 	}
 	
+	
 	public void paint(Graphics g) {
-
 		printBackgroundImage(g);
 		Date date = new Date();
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.setTime(date);
-		drawCenteredCircle(g, centerX, centerY, 325, Color.BLACK);
-		drawCenteredCircle(g, centerX, centerY, 300, Color.WHITE);
-
-		System.out.println(calendar.get(Calendar.HOUR) +":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND));
-		
-		
-		/**
-		 * Second hand.
-		 */
-		int lineX = centerX + (int) (150*Math.cos(radiansToDegrees * calendar.get(Calendar.SECOND) * 6 - Math.PI/2));
-		int lineY = centerY + (int) (150*Math.sin(radiansToDegrees * calendar.get(Calendar.SECOND) * 6 - Math.PI/2));
-		g.setColor(Color.RED);
-		g.drawLine(centerX, centerY, lineX, lineY);
-		/**
-		 * Minute hand
-		 */
-		lineX = centerX + (int) (130*Math.cos(radiansToDegrees * calendar.get(Calendar.MINUTE) *6 - Math.PI/2));
-		lineY = centerY + (int) (130*Math.sin(radiansToDegrees * calendar.get(Calendar.MINUTE) *6 - Math.PI/2));
-		g.setColor(Color.BLACK);
-		g.drawLine(centerX, centerY, lineX, lineY);
-		/**
-		 * Hour hand
-		 */
-		lineX = centerX + (int) (80*Math.cos(radiansToDegrees * calendar.get(Calendar.HOUR) * 30 - Math.PI/2));
-		lineY = centerY + (int) (80*Math.sin(radiansToDegrees * calendar.get(Calendar.HOUR) * 30 - Math.PI/2));
-		g.setColor(Color.BLACK);
-		g.drawLine(centerX, centerY, lineX, lineY);
-		drawNumbers(g);
-		
-		
+		drawClock(centerX, centerY, g, calendar.get(Calendar.SECOND), calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR), this.offSetForTimeZoneInRadians);
 		final int sleep = 500;
+		
 		try{
 			Thread.sleep(sleep);
 		}
@@ -84,6 +136,36 @@ public class Clock extends JFrame{
 		}
 		repaint();
 	}
+	
+	public void drawClock(int xc, int yc, Graphics g, int timeS, int timeM, int timeH, double offset) {
+		drawCenteredCircle(g, xc, yc, 325, Color.BLACK);
+		drawCenteredCircle(g, xc, yc, 300, Color.WHITE);
+		
+		/**
+		 * Second hand.
+		 */
+		int lineX = xc + (int) (150*Math.cos(degreesToRadians * timeS * 6 - Math.PI/2));
+		int lineY = yc + (int) (150*Math.sin(degreesToRadians * timeS * 6 - Math.PI/2));
+		g.setColor(Color.RED);
+		g.drawLine(xc, yc, lineX, lineY);
+		/**
+		 * Minute hand
+		 */
+		lineX = centerX + (int) (130*Math.cos(degreesToRadians * timeM *6 - Math.PI/2));
+		lineY = centerY + (int) (130*Math.sin(degreesToRadians * timeM *6 - Math.PI/2));
+		g.setColor(Color.BLACK);
+		g.drawLine(xc, yc, lineX, lineY);
+		/**
+		 * Hour hand
+		 */
+		int realTimeDeg = (int) (.5 * (60*timeH + timeM));
+		lineX = xc + (int) (80*Math.cos(degreesToRadians * realTimeDeg - Math.PI/2 + offset));
+		lineY = yc + (int) (80*Math.sin(degreesToRadians * realTimeDeg- Math.PI/2 + offset));
+		g.setColor(Color.BLACK);
+		g.drawLine(xc, yc, lineX, lineY);
+		drawNumbers(g);
+	}
+	
 	
 	public void drawCenteredCircle(Graphics g, int x, int y, int r, Color c) {
 		  x = x - (r/2);
@@ -95,12 +177,16 @@ public class Clock extends JFrame{
 	public void drawNumbers(Graphics g) {
 		String[] times = {"3","4","5","6","7","8","9","10","11","12","1","2"};
 		for (int i = 0; i < 360; i+=30) {
-			int labelX = centerX + (int) ((int) 130*Math.cos(radiansToDegrees * i)) -3;
-			int labelY = centerY + (int) ((int) 130*Math.sin(radiansToDegrees * i)) +2;
+			int labelX = centerX + (int) ((int) 130*Math.cos(degreesToRadians * i)) -3;
+			int labelY = centerY + (int) ((int) 130*Math.sin(degreesToRadians * i)) +2;
 			g.drawString(times[i/30], labelX , labelY);
 		}
 	}
 	
+	/**
+	 * Prints the background image out.
+	 * @param g: the graphics object
+	 */
 	public void printBackgroundImage(Graphics g) {
 		if(!initialDraw){
 			int translateX = -50;
@@ -113,7 +199,17 @@ public class Clock extends JFrame{
 				e1.printStackTrace();
 			}
 			g.translate(-translateX, -translateY);
-			initialDraw = true;
 		}
 	}
+	
+	public void drawTitle(Graphics g) {
+		
+		if (!initialDraw) {
+			
+		}
+		
+		initialDraw = true;
+	}
+	
+	
 }
