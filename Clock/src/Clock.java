@@ -19,7 +19,7 @@ public class Clock extends JFrame{
 	/**
 	 * initialDraw is whether or not there has been one draw loop already.
 	 * height is the height
-	 * wdith is the width
+	 * width is the width
 	 * centerX is the center x coordinate
 	 * centerY is the center y coordinate
 	 * degreesToRadians converts degrees to radians
@@ -31,7 +31,6 @@ public class Clock extends JFrame{
 	private final int centerX;
 	private final int centerY;
 	private final double degreesToRadians =  Math.PI / 180;
-	private String title = "";
 	private double offSetForTimeZoneInRadians = 0;
 	
 	/**
@@ -56,9 +55,9 @@ public class Clock extends JFrame{
 		this.width = width;
 		centerX = this.width/2;
 		centerY = this.height/2;
-		this.offSetForTimeZoneInRadians = offset;
-		
+		this.offSetForTimeZoneInRadians = offset;	
 	}
+	
 	
 	
 	/**
@@ -69,21 +68,6 @@ public class Clock extends JFrame{
 	 * @param centerY: the center y coordinate
 	 */
 	public Clock(int width, int height, int centerX, int centerY) {
-		this.height = height;
-		this.width = width;
-		this.centerX = centerX;
-		this.centerY = centerY;
-	}
-	
-	/**
-	 * A constructor where the user can set all the location values
-	 * @param width: the width
-	 * @param height: the height
-	 * @param centerX: the center x coordinate
-	 * @param centerY: the center y coordinate
-	 * @param title: the title of the clock
-	 */
-	public Clock(int width, int height, int centerX, int centerY, String title) {
 		this.height = height;
 		this.width = width;
 		this.centerX = centerX;
@@ -106,28 +90,37 @@ public class Clock extends JFrame{
 		this.offSetForTimeZoneInRadians = offset;
 	}
 	
+	/**
+	 * Default constructor
+	 */
 	public Clock() {
 		this(500,500);
 	}
 	
+	/**
+	 * Starts the clock
+	 * @param title
+	 */
 	public void start(String title) {
 		this.setTitle(title);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(width, height);
-		repaint();
-		
+		this.setVisible(true);
+		repaint();	
 	}
 	
-	
+	/**
+	 * The repaint method.  This method calls the method to print the background image.  It uses the abstracted drawClock() method 
+	 * with the data from the instance of the calendar.  At the end, it calls itself again so it can update the clock.
+	 */
 	public void paint(Graphics g) {
 		printBackgroundImage(g);
 		Date date = new Date();
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.setTime(date);
 		drawClock(centerX, centerY, g, calendar.get(Calendar.SECOND), calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR), this.offSetForTimeZoneInRadians);
-		final int sleep = 500;
-		
+		final int sleep = 500;		
 		try{
 			Thread.sleep(sleep);
 		}
@@ -137,10 +130,19 @@ public class Clock extends JFrame{
 		repaint();
 	}
 	
+	/**
+	 * An astraction to draw a clock.
+	 * @param xc: the x center of the clock
+	 * @param yc: the y center of the clock
+	 * @param g: the graphics object
+	 * @param timeS: the time in seconds
+	 * @param timeM: the time in minutes
+	 * @param timeH: the time in hours
+	 * @param offset: the offset variable which can account for timezones
+	 */
 	public void drawClock(int xc, int yc, Graphics g, int timeS, int timeM, int timeH, double offset) {
 		drawCenteredCircle(g, xc, yc, 325, Color.BLACK);
 		drawCenteredCircle(g, xc, yc, 300, Color.WHITE);
-		
 		/**
 		 * Second hand.
 		 */
@@ -167,6 +169,14 @@ public class Clock extends JFrame{
 	}
 	
 	
+	/**
+	 * Draws a circle
+	 * @param g: the graphics object
+	 * @param x: the center x coordinate
+	 * @param y: the center y coordinate
+	 * @param r: the radius
+	 * @param c: the color of the circle
+	 */
 	public void drawCenteredCircle(Graphics g, int x, int y, int r, Color c) {
 		  x = x - (r/2);
 		  y = y - (r/2);
@@ -174,6 +184,10 @@ public class Clock extends JFrame{
 		  g.fillOval(x,y,r,r);  
 	}
 	
+	/**
+	 * Draws the numbers on the clock.
+	 * @param g: the graphics object
+	 */
 	public void drawNumbers(Graphics g) {
 		String[] times = {"3","4","5","6","7","8","9","10","11","12","1","2"};
 		for (int i = 0; i < 360; i+=30) {
@@ -200,16 +214,9 @@ public class Clock extends JFrame{
 			}
 			g.translate(-translateX, -translateY);
 		}
+		this.initialDraw = true;
 	}
 	
-	public void drawTitle(Graphics g) {
-		
-		if (!initialDraw) {
-			
-		}
-		
-		initialDraw = true;
-	}
 	
 	
 }
