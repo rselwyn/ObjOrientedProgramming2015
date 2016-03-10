@@ -17,13 +17,14 @@ import javax.swing.ImageIcon;
 public class Clock extends JFrame{
 	
 	/**
-	 * initialDraw is whether or not there has been one draw loop already.
+	 * initialDraw is whether or not there has been one draw loop already. Used to make sure
+	 * certain elements dont constantly update.
 	 * height is the height
 	 * width is the width
 	 * centerX is the center x coordinate
 	 * centerY is the center y coordinate
 	 * degreesToRadians converts degrees to radians
-	 * offSet is the time offset, which allows me to have different time zones
+	 * offSet is the time offset (in RADIANS), which allows me to have different time zones
 	 */
 	private boolean initialDraw = false;
 	private final int height;
@@ -49,6 +50,7 @@ public class Clock extends JFrame{
 	 * A constructor for the clock that takes in the width and height.
 	 * @param width the width
 	 * @param height the height
+	 * @param offset: the time offset in RADIANS (used for time zone)
 	 */
 	public Clock(int width, int height, double offset) {
 		this.height = height;
@@ -76,13 +78,14 @@ public class Clock extends JFrame{
 	
 
 	/**
-	 * A constructor where the user can set all the location values
+	 * A constructor where the user can set all the location values with an offset
 	 * @param width: the width
 	 * @param height: the height
 	 * @param centerX: the center x coordinate
 	 * @param centerY: the center y coordinate
+	 * @param offset: the time offset in RADIANS (used for time zone)
 	 */
-	public Clock(int width, int height, int centerX, int centerY, String title, int offset) {
+	public Clock(int width, int height, int centerX, int centerY, int offset) {
 		this.height = height;
 		this.width = width;
 		this.centerX = centerX;
@@ -99,7 +102,7 @@ public class Clock extends JFrame{
 	
 	/**
 	 * Starts the clock
-	 * @param title
+	 * @param title: the title of the JFrame
 	 */
 	public void start(String title) {
 		this.setTitle(title);
@@ -115,10 +118,14 @@ public class Clock extends JFrame{
 	 * with the data from the instance of the calendar.  At the end, it calls itself again so it can update the clock.
 	 */
 	public void paint(Graphics g) {
-		printBackgroundImage(g);
+		printBackgroundImage(g); //print bg image
+		/**
+		 * Create and get the current time.
+		 */
 		Date date = new Date();
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.setTime(date);
+		//draw the clock
 		drawClock(centerX, centerY, g, calendar.get(Calendar.SECOND), calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR), this.offSetForTimeZoneInRadians);
 		final int sleep = 500;		
 		try{
@@ -131,14 +138,14 @@ public class Clock extends JFrame{
 	}
 	
 	/**
-	 * An astraction to draw a clock.
+	 * An abstraction to draw a clock.
 	 * @param xc: the x center of the clock
 	 * @param yc: the y center of the clock
 	 * @param g: the graphics object
 	 * @param timeS: the time in seconds
 	 * @param timeM: the time in minutes
 	 * @param timeH: the time in hours
-	 * @param offset: the offset variable which can account for timezones
+	 * @param offset: the offset variable which can account for time zones
 	 */
 	public void drawClock(int xc, int yc, Graphics g, int timeS, int timeM, int timeH, double offset) {
 		drawCenteredCircle(g, xc, yc, 325, Color.BLACK);
@@ -157,8 +164,9 @@ public class Clock extends JFrame{
 		lineY = centerY + (int) (130*Math.sin(degreesToRadians * timeM *6 - Math.PI/2));
 		g.setColor(Color.BLACK);
 		g.drawLine(xc, yc, lineX, lineY);
+		
 		/**
-		 * Hour hand
+		 * Hour hand.  Note that this updates with the minute hand (the location is not the same at 10:10 as 10:55).
 		 */
 		int realTimeDeg = (int) (.5 * (60*timeH + timeM));
 		lineX = xc + (int) (80*Math.cos(degreesToRadians * realTimeDeg - Math.PI/2 + offset));
@@ -170,7 +178,7 @@ public class Clock extends JFrame{
 	
 	
 	/**
-	 * Draws a circle
+	 * Draws a circle with center coordinates, a radius, and the color.
 	 * @param g: the graphics object
 	 * @param x: the center x coordinate
 	 * @param y: the center y coordinate
@@ -189,10 +197,14 @@ public class Clock extends JFrame{
 	 * @param g: the graphics object
 	 */
 	public void drawNumbers(Graphics g) {
+		final int xOffSet = -3; // the offset to move the numbers left/right
+		final int yOffSet = 2; //the offset to move the numbers up and down
+		
+		//iterate around the circle and add the numbers
 		String[] times = {"3","4","5","6","7","8","9","10","11","12","1","2"};
 		for (int i = 0; i < 360; i+=30) {
-			int labelX = centerX + (int) ((int) 130*Math.cos(degreesToRadians * i)) -3;
-			int labelY = centerY + (int) ((int) 130*Math.sin(degreesToRadians * i)) +2;
+			int labelX = centerX + (int) ((int) 130*Math.cos(degreesToRadians * i)) + xOffSet;
+			int labelY = centerY + (int) ((int) 130*Math.sin(degreesToRadians * i)) + yOffSet;
 			g.drawString(times[i/30], labelX , labelY);
 		}
 	}
@@ -202,18 +214,20 @@ public class Clock extends JFrame{
 	 * @param g: the graphics object
 	 */
 	public void printBackgroundImage(Graphics g) {
+		//Make sure this is being called at the right time
 		if(!initialDraw){
-			int translateX = -50;
-			int translateY = -30;
+			final int translateX = -50;
+			final int translateY = -30;
 			try {
 				g.translate(translateX, translateY);
 				g.drawImage(ImageIO.read(new File("Background.jpg")), 50,50, this);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("Could not find the Background image. Make sure that the file is inside of the project folder.");
 			}
 			g.translate(-translateX, -translateY);
 		}
+		//make sure this doesnt run again
 		this.initialDraw = true;
 	}
 	

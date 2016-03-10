@@ -6,11 +6,10 @@ public class Main {
 	
 	/**
 	 * Instantiate a clock
-	 * @param args
 	 */
 	public static void main(String[] args) {
 		Clock c = new Clock(width,height);
-		c.start("    A Very Cool Clock");
+		c.start("A Very Cool Clock");
 		
 	}
 
