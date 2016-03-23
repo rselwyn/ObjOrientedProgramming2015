@@ -1,28 +1,26 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class ChargeCalculator extends JFrame{
 	
-	public final int WIDTH = 500;
-	public final int HEIGHT = 500;
+	public final int WIDTH = 700;
+	public final int HEIGHT = 700;
 	
 	//values for charge 1
-	public int xCharge1 = 100;
+	public int xCharge1 = 300;
 	public int yCharge1 = 200;
 	public final int radiusOne = 90;
 	
 	//values for charge 2
-	public final int xCharge2 = 400;
-	public final int yCharge2 = 450;
+	public int xCharge2 = 400;
+	public int yCharge2 = 450;
 	public final int radiusTwo = 90;
 	
+	private double lastForceValueX;
+	private double lastForceValueY;
 	
+	public static final int STOP_MOVING_WITH_CURRENT_FORCE_DISTANCE = 180;
 	
 	/**
 	 * Constructor that only takes in the title
@@ -55,7 +53,9 @@ public class ChargeCalculator extends JFrame{
 	 */
 	@Override
 	public void paint(Graphics g) {
-		final int sleep = 500;	//sleep time
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, this.WIDTH, this.HEIGHT);
+		final int sleep = 50;	//sleep time
 		final int scalar = 9000000; //charge scalar so that the charge is visible
 		drawCenteredCircle(g, xCharge1, yCharge1, radiusOne, Color.BLACK);
 		drawCenteredCircle(g, xCharge2, yCharge2, radiusTwo, Color.BLACK);
@@ -85,10 +85,39 @@ public class ChargeCalculator extends JFrame{
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		updateSpherePositions();
 		repaint();
 	}
 	
-
+	/**
+	 * Move the spheres along.
+	 */
+	private void updateSpherePositions() {
+		double distancex = this.xCharge2 - this.xCharge1;
+        double distancey = this.yCharge2 - this.xCharge1;
+        double distanceSquared = distancex * distancex + distancey * distancey;
+        double distance = Math.sqrt(distanceSquared);
+        double force = 100000/distanceSquared;
+        double forceX = force * distancex / distance;
+        double forceY = force * distancey / distance;
+	    System.out.println(distance);
+        if (distance > STOP_MOVING_WITH_CURRENT_FORCE_DISTANCE){	
+	        xCharge1 += forceX;
+	        yCharge1 += forceY;
+	        xCharge2 -= forceX;
+	        yCharge2 -= forceY;
+	        System.out.println("IM RUNNING");
+	        this.lastForceValueX = forceX;
+	        this.lastForceValueY = forceY;
+        }
+        else {
+        	xCharge1 += this.lastForceValueX;
+ 	        yCharge1 += this.lastForceValueY;
+ 	        xCharge2 -= this.lastForceValueX;
+ 	        yCharge2 -= this.lastForceValueY;
+        }
+	}
+	
 	/**
 	 * Draws a circle with center coordinates, a radius, and the color.
 	 * @param g: the graphics object
