@@ -3,26 +3,23 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 
 public class ChargeCalculator extends JFrame{
-	
+	//Frame constants
 	public final int WIDTH = 700;
 	public final int HEIGHT = 700;
 	
+	//Spheres
 	private Sphere one = new Sphere(20,300,200);
 	private Sphere two = new Sphere(20,450,500);
 	
-//	//values for charge 1
-//	public int one.getX() = 300;
-//	public int one.getY() = 200;
-//	public final int radiusOne = 20;
-//	
-//	//values for charge 2
-//	public int xCharge2 = 450;
-//	public int yCharge2 = 500;
-//	public final int radiusTwo = 20;
-	
+	/**
+	 * Because of the how force is inversely proportional to
+	 * the distance squared, as soon as the distance between the spheres gets really close,
+	 * the spheres will over adjust in their position and move completely off screen.  To counter
+	 * act this, I store the last force values and I apply them instead of the correct force if
+	 * the distance is less than the constant.
+	 */
 	private double lastForceValueX;
 	private double lastForceValueY;
-	
 	public static final int STOP_MOVING_WITH_CURRENT_FORCE_DISTANCE = 180;
 	
 	/**
@@ -88,12 +85,12 @@ public class ChargeCalculator extends JFrame{
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		updateSpherePositions();
+		updateSpherePositions(); //update the sphere position
 		repaint();
 	}
 	
 	/**
-	 * Move the spheres along.
+	 * Change the sphere positions.
 	 */
 	private void updateSpherePositions() {
 		double distancex = this.two.getX() - one.getX();
@@ -103,13 +100,13 @@ public class ChargeCalculator extends JFrame{
         double force = 100000/distanceSquared;
         double forceX = force * distancex / distance;
         double forceY = force * distancey / distance;
-	    System.out.println(distance);
+        //prevent overcompensation
+        //see the constants section for more info on this
         if (distance > STOP_MOVING_WITH_CURRENT_FORCE_DISTANCE){	
         	one.setX((int) (one.getX() + forceX));
         	one.setY((int) (one.getY() + forceY));
         	two.setX((int) (two.getX() - forceX));
         	two.setY((int) (two.getY() - forceY));
-	        System.out.println("IM RUNNING");
 	        this.lastForceValueX = forceX;
 	        this.lastForceValueY = forceY;
         }
