@@ -7,9 +7,11 @@ public class ChargeCalculator extends JFrame{
 	public final int WIDTH = 700;
 	public final int HEIGHT = 700;
 	
+	private final int RADIUS = 20;
+	
 	//Spheres
-	private Sphere one = new Sphere(20,300,200);
-	private Sphere two = new Sphere(20,450,500);
+	private Sphere one = new Sphere(RADIUS,300,200);
+	private Sphere two = new Sphere(RADIUS,450,500);
 	
 	/**
 	 * Because of the how force is inversely proportional to
