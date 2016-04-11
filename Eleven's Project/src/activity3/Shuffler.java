@@ -97,20 +97,17 @@ public class Shuffler {
 	 * selected and add it to the selected cards.
 	 * An efficient version of this algorithm makes use of arrays to avoid
 	 * searching for an as-yet-unselected card.
-	 * @param values is an array of integers simulating cards to be shuffled.
+	 * @param cards is an array of integers simulating cards to be shuffled.
 	 */
-	public static int[] selectionShuffle(int[] values) {
+	public static int[] selectionShuffle(int[] cards) {
 		Random rand = new Random();
-		int[] shuffled = new int[values.length];
-		for (int i = 0; i < values.length-1; i++) {
-			int rnged = rand.nextInt(values.length-i);
-			while(values[rnged] < -1) {
-				rnged = rand.nextInt(values.length-i);
-			}
-			shuffled[i] = values[rnged];
-			values[rnged] = -2;
+		for (int k = cards.length-1; k >= 0; k--) {
+			int r = (k>0 ? rand.nextInt(k) : 0); //add one because exclusive
+			int temp =  cards[r];
+			cards[r] = cards[k];
+			cards[k] = temp;
 		}
-		return shuffled;
+		return cards;
 	}
 	
 

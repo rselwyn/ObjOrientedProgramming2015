@@ -1,3 +1,6 @@
+package activity4;
+
+
 /**
  * This is a class that tests the Deck class.
  */
@@ -9,10 +12,10 @@ public class DeckTester {
 	 */
 	public static void main(String[] args) {
 		String[] ranks = {"jack", "queen", "king"};
-		String[] suits = {"blue", "red"};
+		String[] suits = {"blue", "red", "red"};
 		int[] pointValues = {11, 12, 13};
 		Deck d = new Deck(ranks, suits, pointValues);
-
+		
 		System.out.println("**** Original Deck Methods ****");
 		System.out.println("  toString:\n" + d.toString());
 		System.out.println("  isEmpty: " + d.isEmpty());
@@ -51,6 +54,14 @@ public class DeckTester {
 		System.out.println();
 		System.out.println();
 
-		/* *** TO BE COMPLETED IN ACTIVITY 4 *** */
+		String[] ranksTwo = {"Two","Three", "Four", "Five", "Size", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King","Ace","Two","Three", "Four", "Five", "Size", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King","Ace","Two","Three", "Four", "Five", "Size", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King","Ace","Two","Three", "Four", "Five", "Size", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King","Ace"};
+		String[] suitsTwo = new String[52];
+		for (int i=0;i<13;i++) suitsTwo[i] = "Hearts";
+		for (int i=13;i<26;i++) suitsTwo[i] = "Diamonds";
+		for (int i=26;i<39;i++) suitsTwo[i] = "Spades";
+		for (int i=39;i<52;i++) suitsTwo[i] = "Clubs";
+		int[] vals = {2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14,2,3,4,5,6,7,8,9,10,11,12,13,14};
+		Deck de = new Deck(ranksTwo,suitsTwo,vals);
+		System.out.println(de);
 	}
 }

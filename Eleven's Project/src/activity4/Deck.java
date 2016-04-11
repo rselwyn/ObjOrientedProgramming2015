@@ -1,5 +1,12 @@
+package activity4;
+
 import java.util.List;
+import java.util.Random;
+
+import activity2.Card;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Deck class represents a shuffled deck of cards.
@@ -31,12 +38,11 @@ public class Deck {
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		cards = new ArrayList<Card>();
-		for (int j = 0; j < ranks.length; j++) {
-			for (String suitString : suits) {
-				cards.add(new Card(ranks[j], suitString, values[j]));
-			}
+		if (!(ranks.length == suits.length && suits.length == values.length)) throw new IllegalArgumentException();
+		for (int i = 0; i<ranks.length; i++) {
+			cards.add(new Card(ranks[i], suits[i], values[i]));
 		}
-		size = cards.size();
+		this.size = cards.size();
 		shuffle();
 	}
 
@@ -62,7 +68,13 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		Random rand = new Random();
+		for (int k = cards.size()-1; k >= 0; k--) {
+			int r = (k>0 ? rand.nextInt(k) : 0); //add one because exclusive
+			Card temp =  cards.get(r);
+			cards.set(r, cards.get(k));
+			cards.set(k, temp);
+		}
 	}
 
 	/**
@@ -74,7 +86,7 @@ public class Deck {
 		if (isEmpty()) {
 			return null;
 		}
-		size--;
+		this.size = size-1;
 		Card c = cards.get(size);
 		return c;
 	}
