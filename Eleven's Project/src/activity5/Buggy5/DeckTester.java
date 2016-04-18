@@ -1,3 +1,5 @@
+package activity5.Buggy5;
+
 /**
  * This is a class that tests the Deck class using assert statements.
  */
@@ -130,9 +132,11 @@ public class DeckTester {
 			+ " does not match deck d2 size of " + d2.size() + ".";
 
 		boolean allMatch = true;
-		while (!d1.isEmpty()) {
+		while (d1.size() != 0) {
 			Card c1 = d1.deal();
 			Card c2 = d2.deal();
+			System.out.println(c1);
+			System.out.println(c2);
 			if (!c1.matches(c2)) {
 				allMatch = false;
 			}

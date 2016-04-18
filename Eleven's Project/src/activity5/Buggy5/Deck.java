@@ -1,4 +1,9 @@
+package activity5.Buggy5;
+
 import java.util.List;
+import java.util.Random;
+
+
 import java.util.ArrayList;
 
 /**
@@ -61,13 +66,12 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		for (int k = cards.size() - 1; k < 0; k--) {
-			int howMany = k + 1;
-			int start = 0;
-			int randPos = (int) (Math.random() * howMany) + start;
-			Card temp = cards.get(k);
-			cards.set(k, cards.get(randPos));
-			cards.set(randPos, temp);
+		Random rand = new Random();
+		for (int k = cards.size()-1; k >= 0; k--) {
+			int r = (k>0 ? rand.nextInt(k) : 0); //add one because exclusive
+			Card temp =  cards.get(r);
+			cards.set(r, cards.get(k));
+			cards.set(k, temp);
 		}
 		size = cards.size();
 	}
